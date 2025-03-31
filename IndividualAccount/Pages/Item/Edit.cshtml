@@ -13,6 +13,15 @@
         <label>Description</label>
         <textarea asp-for="Item.Description" class="form-control"></textarea>
     </div>
+
+    @if (Model.IsAdmin)
+    {
+        <div class="form-group">
+            <label>IsDeleted</label>
+            <input type="checkbox" asp-for="Item.IsDeleted" />
+        </div>
+    }
+
     <button type="submit" class="btn btn-success">Save changes</button>
     <a asp-page="Index" class="btn btn-secondary">Abort</a>
 </form>

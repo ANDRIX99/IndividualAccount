@@ -1,4 +1,25 @@
 ﻿@page
 @model IndividualAccount.Pages.Item.DeleteModel
-@{
-}
+
+<h2>Delete item</h2>
+
+<div>
+    <h4>Item detail</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Nome:</dt>
+        <dd class="col-sm-10">@Model.Item.Name</dd>
+
+        <dt class="col-sm-2">Descrizione:</dt>
+        <dd class="col-sm-10">@Model.Item.Description</dd>
+
+        <dt class="col-sm-2">Creato il:</dt>
+        <dd class="col-sm-10">@Model.Item.CreatedAt</dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Item.Id" />
+        <button type="submit" class="btn btn-danger">Conferma Eliminazione</button>
+        <a asp-page="Index" class="btn btn-secondary">Annulla</a>
+    </form>
+</div>

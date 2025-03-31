@@ -20,8 +20,13 @@ namespace IndividualAccount.Pages.Item
         [BindProperty]
         public IndividualAccount.Model.Item Item { get; set; }
 
+        public bool IsAdmin { get; set; } 
+
         public async Task<IActionResult> OnGetAsync(int id)
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null) IsAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
             Item = await _context.Items.FindAsync(id);
             if (Item == null) return NotFound();
             return Page();
@@ -44,6 +49,7 @@ namespace IndividualAccount.Pages.Item
             // Update only the editable field
             existingItem.Name = Item.Name;
             existingItem.Description = Item.Description;
+            existingItem.IsDeleted = Item.IsDeleted;
 
             // Trace user edit
             var user = await _userManager.GetUserAsync(User);

@@ -17,8 +17,21 @@ namespace IndividualAccount.Pages.Item
             _userManager = userManager;
         }
 
-        public void OnGet()
+        [BindProperty]
+        public IndividualAccount.Model.Item Item { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int id)
         {
+            Item = await _context.Items
+                .Include(i => i.CreatedBy)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (Item == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
