@@ -1,0 +1,33 @@
+﻿@page
+@model IndividualAccount.Pages.Admin.Users.ListModel
+
+@{
+    ViewData["Title"] = "Lista Utenti";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Ruolo</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userWithRoles in Model.Users)
+        {
+            <tr>
+                <td>@userWithRoles.User.Email</td>
+                @foreach (var role in userWithRoles.Roles)
+                {
+                    <td>@role</td> <!-- Mostra ciascun ruolo -->
+                }
+                <td>
+                    <a href="/Admin/Users/ResetPassword/@userWithRoles.User.Id" class="btn btn-warning btn-sm">Reimposta Password</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

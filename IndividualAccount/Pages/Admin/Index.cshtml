@@ -1,0 +1,17 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Benvenuto alla Home Page</h1>
+
+<!-- Aggiungi il bottone "Crea Nuovo Utente" solo se l'utente è un Admin -->
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <a href="/Admin/Users/Create" class="btn btn-primary">Aggiungi Nuovo Utente</a>
+}

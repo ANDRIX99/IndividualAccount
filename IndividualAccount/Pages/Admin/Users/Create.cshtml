@@ -1,0 +1,29 @@
+﻿@page
+@model IndividualAccount.Pages.Admin.Users.CreateModel
+
+@{
+}
+
+<h2>Create new user</h2>
+
+<form method="post" >
+	<input type="email" name="Email" placeholder="email@example.com" class="form-control" required />
+	<input type="password" name="Password" placeholder="password" class="form-control" required />
+	<select id="Role" name="Role" >
+		<option value="Admin">Admin</option>
+		<option value="NormalUser">Normal User</option>
+	</select>
+	<button type="submit" class="btn btn-primary mt-2" >Create new user</button>
+</form>
+
+@if (!ModelState.IsValid)
+{
+	<div class="alert alert-danger mt-2">
+		<ul>
+			@foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+			{
+				<li>@error.ErrorMessage</li>
+			}
+		</ul>
+	</div>
+}
