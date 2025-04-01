@@ -14,7 +14,8 @@ namespace IndividualAccount.Model
         [Required]
         public int IdFiglio { get; set; }
 
-        public int Quantita { get; set; }
+        [Column(TypeName = "decimal(18, 3)")]
+        public decimal Quantita { get; set; }
 
         [ForeignKey("IdVersione")]
         public virtual VersioneDistintaBase Versione { get; set; }

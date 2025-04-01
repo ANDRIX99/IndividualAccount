@@ -4,11 +4,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<h1>Benvenuto alla Home Page</h1>
+<h1>Home page admin</h1>
 
 <!-- Aggiungi il bottone "Crea Nuovo Utente" solo se l'utente è un Admin -->
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))

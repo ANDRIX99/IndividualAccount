@@ -1,0 +1,47 @@
+﻿@page
+@model IndividualAccount.Pages.DistintaBase.CreateModel
+
+<h2>Create new distinta base</h2>
+
+<form method="post">
+	<!-- Enter item -->
+	<div class="form-control">
+		<label>Item</label>
+		<select asp-for="DistintaBase.IdFiglio" class="form-control">
+			<option value="">Select an item</option>
+			@foreach (var item in Model.Items)
+			{
+				<option value="@item.Id">@item.Name</option>
+			}
+		</select>
+	</div>
+
+	<!-- Enter version -->
+	<div class="form-control">
+		<label>Version</label>
+		<select asp-for="DistintaBase.IdVersione" class="form-control">
+			<option value="" >Select version</option>
+			@foreach (var version in Model.VersioneDistintaBase)
+			{
+				foreach (var item in Model.Items)
+				{
+					if (version.IdProduct == item.Id)
+					{
+						<option value="@version.Id">@item.Name @version.Versione</option>
+					}
+				}
+			}
+		</select>
+	</div>
+
+	<!-- Enter amount -->
+	<div class="form-control">
+		<label>Quantità</label>
+		<input asp-for="DistintaBase.Quantita" step="0.001" />
+	</div>
+
+	<div class="form-control">
+		<button type="submit" class="btn btn-success">Save</button>
+		<a asp-page="Index" class="btn btn-secondary">Abort</a>
+	</div>
+</form>

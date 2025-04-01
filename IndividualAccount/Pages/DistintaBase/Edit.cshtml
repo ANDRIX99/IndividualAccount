@@ -1,0 +1,24 @@
+﻿@page
+@model IndividualAccount.Pages.DistintaBase.EditModel
+
+<h2>Edit distinta base</h2>
+
+<form method="post">
+	<input type="hidden" asp-for="DistintaBase.Id" />
+
+	<div class="form-controll">
+		<label>Quantità</label>
+		<input asp-for="DistintaBase.Quantita" class="form-control" />
+	</div>
+
+	@if (Model.IsAdmin)
+	{
+		<div class="form-controll">
+			<label>IsDeleted</label>
+			<input type="checkbox" asp-for="DistintaBase.IsDeleted" />
+		</div>
+	}
+
+	<button type="submit" class="btn btn-success">Save changes</button>
+	<a asp-page="Index" class="btn btn-secondary">Abort</a>
+</form>

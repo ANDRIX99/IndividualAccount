@@ -9,10 +9,12 @@
 	<thead>
 		<tr>
 			<th>Name</th>
-			<th>Description</th>
+			<th>Amount</th>
+			<th>Version</th>
 			<th>Actions</th>
 			@if (Model.IsAdmin)
 			{
+				<th>Is Deleted</th>
 				<th>Created by</th>
 				<th>Edit by</th>
 				<th>Deleted by</th>
@@ -20,31 +22,46 @@
 		</tr>
 	</thead>
 	<tbody>
-		@* @foreach (var item in Model.DistinteBase)
+		@foreach (var distintabase in Model.DistinteBase)
 		{
-			<tr>
-				@if (!item.IsDeleted && !Model.IsAdmin)
+			foreach (var versionedistintabase in Model.VersioniDistintaBase)
+			{
+				foreach (var item in Model.Items)
 				{
-					<td>@item.Name</td>
-					<td>@item.Description</td>
-					<td>
-						<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-waring">Edit</a>
-						<a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-warning">Delete</a>
-					</td>
+					<tr>
+						@if (!Model.IsAdmin && distintabase.IdFiglio == item.Id && distintabase.IdVersione == versionedistintabase.Id && !distintabase.IsDeleted)
+						{
+							<td>@item.Name</td>
+							<td>@distintabase.Quantita</td>
+							<td>@versionedistintabase.Versione</td>
+							<td>
+								<a asp-page="Edit" asp-route-id="@distintabase.Id" class="btn btn-warning">Edit</a>
+								<a asp-page="Delete" asp-route-id="@distintabase.Id" class="btn btn-danger">Delete</a>
+							</td>
+						}
+						@if (Model.IsAdmin && versionedistintabase.IdProduct == item.Id && distintabase.IdVersione == versionedistintabase.Id)
+						{
+							<td>@item.Name</td>
+							<td>@distintabase.Quantita</td>
+							<td>@versionedistintabase.Versione</td>
+							<td>
+								<a asp-page="Edit" asp-route-id="@distintabase.Id" class="btn btn-warning">Edit</a>
+								<a asp-page="Delete" asp-route-id="@distintabase.Id" class="btn btn-danger">Delete</a>
+							</td>
+							@if (distintabase.IsDeleted)
+							{
+								<td>Deleted</td>
+							} else
+							{
+								<td>Not deleted</td>
+							}
+							<td>@distintabase.CreatedBy?.UserName</td>
+							<td>@distintabase.ModifiedBy?.UserName</td>
+							<td>@distintabase.DeletedBy?.UserName</td>
+						}
+					</tr>
 				}
-				@if (Model.IsAdmin)
-				{
-					<td>@item.Name</td>
-					<td>@item.Description</td>
-					<td>
-						<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-waring">Edit</a>
-						<a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-warning">Delete</a>
-					</td>
-					<td>@item.CreatedBy?.UserName</td>
-					<td>@item.ModifiedBy?.UserName</td>
-					<td>@item.DeletedBy?.UserName</td>
-				}
-			</tr>
-		} *@
+			}
+		}
 	</tbody>
 </table>

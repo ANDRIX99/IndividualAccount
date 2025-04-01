@@ -22,9 +22,11 @@
                 <td>@userWithRoles.User.Email</td>
                 @foreach (var role in userWithRoles.Roles)
                 {
-                    <td>@role</td> <!-- Mostra ciascun ruolo -->
+                    <td>@role</td>
+                    Console.WriteLine(role);
                 }
                 <td>
+                    <a href="/Admin/Users/Edit" class="btn btn-secondary btn-sm">Modifica ruolo</a>
                     <a href="/Admin/Users/ResetPassword/@userWithRoles.User.Id" class="btn btn-warning btn-sm">Reimposta Password</a>
                 </td>
             </tr>

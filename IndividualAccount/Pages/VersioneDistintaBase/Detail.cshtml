@@ -1,0 +1,71 @@
+﻿@page
+@model IndividualAccount.Pages.VersioneDistintaBase.DetailModel
+
+@{
+	decimal totalAmount = 0;
+}
+
+@foreach (var item in Model.Item)
+{
+	if (Model.VersioneDistintaBase.IdProduct == item.Id)
+	{
+		<h2>Detail of @item.Name version @Model.VersioneDistintaBase.Versione</h2>
+	}
+}
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Amount</th>
+			<th>Actions</th>
+			@if (Model.IsAdmin)
+			{
+				<th>Created by</th>
+				<th>Edit by</th>
+				<th>Deleted by</th>
+			}
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var distintabase in Model.DistintaBase)
+		{
+			foreach (var item in Model.Item)
+			{
+				if (!Model.IsAdmin && Model.VersioneDistintaBase.Id == distintabase.IdVersione && distintabase.IdFiglio == item.Id && !distintabase.IsDeleted)
+				{
+					totalAmount += distintabase.Quantita;
+					<tr>
+						<td>@item.Name</td>
+						<td>@distintabase.Quantita Kg</td>
+						<td>
+							<a asp-page="/DistintaBase/Edit" asp-route-id="@distintabase.Id" class="btn btn-warning">Edit</a>
+							<a asp-page="/DistintaBase/Delete" asp-route-id="@distintabase.Id" class="btn btn-danger">Delete</a>
+						</td>
+					</tr>
+				}
+				if (Model.IsAdmin && Model.VersioneDistintaBase.Id == distintabase.IdVersione && distintabase.IdFiglio == item.Id && !distintabase.IsDeleted)
+				{
+					totalAmount += distintabase.Quantita;
+					<tr>
+						<td>@item.Name</td>
+						<td>@distintabase.Quantita Kg</td>
+						<td>
+							<a asp-page="/DistintaBase/Edit" asp-route-id="@distintabase.Id" class="btn btn-warning">Edit</a>
+							<a asp-page="/DistintaBase/Delete" asp-route-id="@distintabase.Id" class="btn btn-danger">Delete</a>
+						</td>
+						<td>@item.CreatedBy?.UserName</td>
+						<td>@item.ModifiedBy?UserName</td>
+						<td>@item.DeletedBy?.UserName</td>
+					</tr>
+				}
+			}
+		}
+		<tr>
+			<td>Total amount:</td>
+			<td>@totalAmount Kg</td>
+		</tr>
+	</tbody>
+</table>
+
+<a asp-page="Index" class="btn btn-secondary">Back home</a>

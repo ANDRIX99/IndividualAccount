@@ -21,6 +21,8 @@ namespace IndividualAccount.Pages.DistintaBase
 
         public IList<IndividualAccount.Model.Item> Items { get; set; }
 
+        public IList<IndividualAccount.Model.VersioneDistintaBase> VersioniDistintaBase { get; set; }
+
         public bool IsAdmin { get; set; }
 
         public async Task OnGetAsync()
@@ -32,6 +34,9 @@ namespace IndividualAccount.Pages.DistintaBase
                 .Include(c => c.ModifiedBy)
                 .Include(c => c.DeletedBy)
                 .ToListAsync();
+
+            Items = await _context.Items.ToListAsync();
+            VersioniDistintaBase = await _context.VersioniDistintaBase.ToListAsync();
         }
     }
 }

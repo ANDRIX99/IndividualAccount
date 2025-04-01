@@ -10,11 +10,17 @@ namespace IndividualAccount.Pages.Admin.Users
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public CreateModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public CreateModel(
+            UserManager<IdentityUser> userManager, 
+            RoleManager<IdentityRole> roleManager,
+            SignInManager<IdentityUser> signInManager
+            )
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
         [BindProperty]

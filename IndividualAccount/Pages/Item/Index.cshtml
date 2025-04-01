@@ -13,6 +13,7 @@
 			<th>Actions</th>
 			@if (Model.IsAdmin)
 			{
+				<th>Is deleted</th>
 				<th>Created by</th>
 				<th>Edit by</th>
 				<th>Deleted by</th>
@@ -28,8 +29,8 @@
 					<td>@item.Name</td>
 					<td>@item.Description</td>
 					<td>
-						<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-waring">Edit</a>
-						<a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-warning">Delete</a>
+						<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+						<a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
 					</td>
 				}
 				@if (Model.IsAdmin)
@@ -37,9 +38,16 @@
 					<td>@item.Name</td>
 					<td>@item.Description</td>
 					<td>
-						<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-waring">Edit</a>
-						<a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-warning">Delete</a>
+						<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+						<a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
 					</td>
+					if (item.IsDeleted)
+					{
+						<td>Deleted</td>
+					} else
+					{
+						<td>Not deleted</td>
+					}
 					<td>@item.CreatedBy?.UserName</td>
 					<td>@item.ModifiedBy?.UserName</td>
 					<td>@item.DeletedBy?.UserName</td>
