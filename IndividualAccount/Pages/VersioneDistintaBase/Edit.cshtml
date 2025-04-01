@@ -1,0 +1,24 @@
+﻿@page
+@model IndividualAccount.Pages.VersioneDistintaBase.EditModel
+
+<h2>Edit item</h2>
+
+<form method="post">
+	<input type="hidden" asp-for="VersioneDistintaBase.Id" />
+
+	<div class="form-control">
+		<label>Versione</label>
+		<input asp-for="VersioneDistintaBase.Versione" class="form-control" />
+	</div>
+
+	@if (Model.IsAdmin)
+	{
+		<div class="form-control">
+			<label>IsDeleted</label>
+			<input type="checkbox" asp-for="VersioneDistintaBase.IsDeleted" />
+		</div>
+	}
+
+	<button type="submit" class="btn btn-success">Save changes</button>
+	<a asp-page="Index" class="btn btn-secondary">Abort</a>
+</form>

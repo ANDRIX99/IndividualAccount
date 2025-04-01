@@ -12,6 +12,8 @@ namespace IndividualAccount.Data
         }
 
         public DbSet<Item> Items { get; set; }
+        public DbSet<VersioneDistintaBase> VersioniDistintaBase { get; set; }
+        public DbSet<DistintaBase> DistinteBase { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

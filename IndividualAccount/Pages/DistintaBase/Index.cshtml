@@ -1,0 +1,50 @@
+﻿@page
+@model IndividualAccount.Pages.DistintaBase.IndexModel
+
+<h2>Item list</h2>
+
+<a asp-page="Create" class="btn btn-primary">Create new item</a>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Actions</th>
+			@if (Model.IsAdmin)
+			{
+				<th>Created by</th>
+				<th>Edit by</th>
+				<th>Deleted by</th>
+			}
+		</tr>
+	</thead>
+	<tbody>
+		@* @foreach (var item in Model.DistinteBase)
+		{
+			<tr>
+				@if (!item.IsDeleted && !Model.IsAdmin)
+				{
+					<td>@item.Name</td>
+					<td>@item.Description</td>
+					<td>
+						<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-waring">Edit</a>
+						<a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-warning">Delete</a>
+					</td>
+				}
+				@if (Model.IsAdmin)
+				{
+					<td>@item.Name</td>
+					<td>@item.Description</td>
+					<td>
+						<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-waring">Edit</a>
+						<a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-warning">Delete</a>
+					</td>
+					<td>@item.CreatedBy?.UserName</td>
+					<td>@item.ModifiedBy?.UserName</td>
+					<td>@item.DeletedBy?.UserName</td>
+				}
+			</tr>
+		} *@
+	</tbody>
+</table>

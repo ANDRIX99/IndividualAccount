@@ -4,6 +4,7 @@ using IndividualAccount.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IndividualAccount.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250401061142_AddVersioneDistintaBaseAndDistintaBase")]
+    partial class AddVersioneDistintaBaseAndDistintaBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,13 +37,13 @@ namespace IndividualAccount.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdFiglio")
                         .HasColumnType("int");
@@ -48,29 +51,20 @@ namespace IndividualAccount.Data.Migrations
                     b.Property<int>("IdVersione")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantita")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("DeletedById");
-
                     b.HasIndex("IdFiglio");
 
                     b.HasIndex("IdVersione");
-
-                    b.HasIndex("ModifiedById");
 
                     b.ToTable("DistinteBase");
                 });
@@ -135,39 +129,30 @@ namespace IndividualAccount.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdProduct")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Versione")
+                    b.Property<string>("versione")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("DeletedById");
-
                     b.HasIndex("IdProduct");
-
-                    b.HasIndex("ModifiedById");
 
                     b.ToTable("VersioniDistintaBase");
                 });
@@ -376,14 +361,6 @@ namespace IndividualAccount.Data.Migrations
 
             modelBuilder.Entity("IndividualAccount.Model.DistintaBase", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "DeletedBy")
-                        .WithMany()
-                        .HasForeignKey("DeletedById");
-
                     b.HasOne("IndividualAccount.Model.Item", "Figlio")
                         .WithMany()
                         .HasForeignKey("IdFiglio")
@@ -396,17 +373,7 @@ namespace IndividualAccount.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById");
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("DeletedBy");
-
                     b.Navigation("Figlio");
-
-                    b.Navigation("ModifiedBy");
 
                     b.Navigation("Versione");
                 });
@@ -437,29 +404,11 @@ namespace IndividualAccount.Data.Migrations
 
             modelBuilder.Entity("IndividualAccount.Model.VersioneDistintaBase", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "DeletedBy")
-                        .WithMany()
-                        .HasForeignKey("DeletedById");
-
                     b.HasOne("IndividualAccount.Model.Item", "Product")
                         .WithMany()
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById");
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("DeletedBy");
-
-                    b.Navigation("ModifiedBy");
 
                     b.Navigation("Product");
                 });
